@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit&family=Pixelify+Sans&display=swap" rel="stylesheet">
+  <style>
+.sort-links a.active {
+  color: red;
+}
+
+body {
+    background-color: antiquewhite;
+}
+
+a {
+    text-decoration: none;
+    background-color: blue;
+    border: 0px solid;
+    border-bottom: 1px solid black;
+    color: rgb(255, 255, 255);
+    border-radius:  30px; 
+    padding: 5px;
+    transition: 0.3s ease;
+}
+
+a:hover {
+    text-decoration: none;
+    background-color: rgb(255, 255, 255);
+    border: 0px solid;
+    border-bottom: 1px solid black;
+    color: rgb(0, 0, 0);
+    border-radius:  30px; 
+    padding: 5px;
+}
+
+
+* {
+    font-family: 'Kanit', sans-serif;
+}
+
+  </style>
+</head>
+<body>
+  <h1>Магаз за землю</h1>
+  <ul id="book-list">
+    <li class="book">
+      <span class="title">Книга-1:</span>
+      <span class="price">200 тг.</span>
+    </li>
+    <li class="book">
+      <span class="title">Книга-2:</span>
+      <span class="price">150 тг.</span>
+    </li>
+    <li class="book">
+      <span class="title">Книга-3:</span>
+      <span class="price">300 тг.</span>
+    </li>
+  </ul>
+  <div class="sort-links">
+    <a href="#" class="sort-price-asc">Цена ↑</a>
+    <a href="#" class="sort-price-desc">Цена ↓</a>
+  </div>
+  <script src="script.js">
+    document.addEventListener("DOMContentLoaded", function () {
+    const bookList = document.getElementById("book-list");
+    const sortPriceAscLink = document.querySelector(".sort-price-asc");
+    const sortPriceDescLink = document.querySelector(".sort-price-desc");
+
+    sortPriceAscLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      sortPriceAscLink.classList.add("active");
+      sortPriceDescLink.classList.remove("active");
+  
+      const books = Array.from(bookList.querySelectorAll(".book"));
+      books.sort((a, b) => {
+        const priceA = parseFloat(a.querySelector(".price").textContent);
+        const priceB = parseFloat(b.querySelector(".price").textContent);
+        return priceA - priceB;
+      });
+  
+      books.forEach((book) => bookList.appendChild(book));
+    });
+  
+    sortPriceDescLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      sortPriceDescLink.classList.add("active");
+      sortPriceAscLink.classList.remove("active");
+  
+      const books = Array.from(bookList.querySelectorAll(".book"));
+      books.sort((a, b) => {
+        const priceA = parseFloat(a.querySelector(".price").textContent);
+        const priceB = parseFloat(b.querySelector(".price").textContent);
+        return priceB - priceA;
+      });
+  
+      books.forEach((book) => bookList.appendChild(book));
+    });
+  });
+  
+  </script>
+</body>
+</html>
